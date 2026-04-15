@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Use simulation time -->
+  <param name="use_sim_time" value="false" />
+  <!-- Core switches -->
+  <arg name="enable_speed_controller" default="true" />
+  <arg name="speed_controller_type" default="discrete" />
+  <arg name="enable_rviz" default="false" />
+  <arg name="enable_local_costmap" default="true" />
+  <arg name="enable_standalone_converter" default="true" />
+  <arg name="enable_debug" default="false" />
+  <!-- PointCloud2 -> LaserScan bridge settings (using external /scan by default) -->
+  <arg name="scan_topic" default="/scan" />
+  <arg name="scan_target_frame" default="body" />
+
+  <!-- Optional RViz config path -->
+  <arg name="rviz_config" default="" />
+
+  <!-- costmap and costmap_converter removed: local costmap, converter and lidar_obstacle_node are disabled -->
+
+  <node pkg="vo_navigation" type="lidar_obstacle_node" name="lidar_obstacle_node" output="screen">
+    <rosparam command="load" file="$(find vo_navigation)/config/lidar_obstacle.yaml" />
+  </node>
+
+  <node pkg="vo_navigation" type="subgoal_selector_node" name="subgoal_selector_node" output="screen">
+    <rosparam command="load" file="$(find vo_navigation)/config/subgoal_selector.yaml" />
+  </node>
+
+  <node pkg="vo_navigation" type="vo_node" name="vo_node" output="screen">
+    <rosparam command="load" file="$(find vo_navigation)/config/vo_node.yaml" />
+    <param name="enable_runtime_debug" value="$(arg enable_debug)" />
+  </node>
+
+  <!-- Load speed_controller params at global namespace -->
+  <rosparam if="$(arg enable_speed_controller)" command="load" file="$(find speed_controller)/config/speed_controller.yaml" />
+
+  <!-- Speed controller node (discrete or continuous) -->
+  <node if="$(arg enable_speed_controller)"
+        pkg="speed_controller"
+        type="speed_controller_$(arg speed_controller_type)"
+        name="speed_controller_node"
+        output="screen" />
+
+    <!-- Optional RViz for quick visualization debugging -->
+    <node if="$(arg enable_rviz)"
+      pkg="rviz"
+      type="rviz"
+      name="rviz"
+      args="$(eval '-d ' + arg('rviz_config') if arg('rviz_config') != '' else '')"
+      output="screen" />
+</launch>

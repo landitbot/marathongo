@@ -1,0 +1,2 @@
+find_package(TBB REQUIRED)
+list(APPEND ALL_TARGET_LIBRARIES TBB::tbb)

@@ -1,0 +1,71 @@
+slam:
+  filter_size_surf: 0.1
+  filter_size_map: 0.1
+  common:
+      lid_topic: /ouster/points
+      imu_topic: /imu/data
+      gnss_topic: "gnss_gpgga"
+      time_sync_en: false         # ONLY turn on when external time synchronization is really not possible
+      time_offset_lidar_to_imu: 0.0 # Time offset between lidar and IMU calibrated by other algorithms, e.g. LI-Init (can be found in README).
+                                    # This param will take effect no matter what time_sync_en is. So if the time offset is not known exactly, please set as 0.0
+
+  preprocess:
+      lidar_type: 3                # 1 for Livox serials LiDAR, 2 for Velodyne LiDAR, 3 for ouster LiDAR, 
+      scan_line: 128
+      blind: 0.5
+      point_filter_num: 2
+      feature_extract_enable: false
+      timestamp_unit: 3
+
+  mapping:
+      acc_cov: 0.1
+      gyr_cov: 0.1
+      b_acc_cov: 0.0001
+      b_gyr_cov: 0.0001
+      fov_degree:    360
+      det_range:     20.0
+      extrinsic_est_en:  false      # true: enable the online estimation of IMU-LiDAR extrinsic
+      extrinsic_T: [0.039 , 0.001324 , -0.03]
+      extrinsic_R: [ 0.478038, -0.875054, -0.075893,
+                    -0.878088, -0.478181, -0.017453,
+                    -0.021018,  0.074984, -0.996963 ]
+
+  publish:
+      path_en:  true
+      scan_publish_en:  true       # false: close all the point cloud output
+      dense_publish_en: true       # false: low down the points number in a global-frame point clouds scan.
+      scan_bodyframe_pub_en: true  # true: output the point cloud scans in IMU-body-frame
+
+  pcd_save:
+      pcd_save_en: false
+      interval: -1                 # how many LiDAR frames saved in each pcd file; 
+                                  # -1 : all frames will be saved in ONE pcd file, may lead to memory crash when having too much frames.
+imu_processing:
+  initUseRtk: true
+  acc_cov: 0.1
+  gyr_cov: 0.1
+  b_acc_cov: 0.0001
+  b_gyr_cov: 0.0001
+  extrinsic_T: [0.039 , 0.001324 , -0.03]
+  extrinsic_R: [ 0.478038, -0.875054, -0.075893,
+                -0.878088, -0.478181, -0.017453,
+                -0.021018,  0.074984, -0.996963 ]
+  static_rot_method: 3
+  gnss_heading_need_init: true
+  front:
+    gnss_cov: [0.0001, 0.0001, 0.0001]
+    gnss_front: false
+    wheel_cov: [0.0001, 0.0001, 0.0001]
+    # wheel_cov: [1000, 1000, 1000]
+    wheel_front: true
+    virtual_wheel_front: false
+    static_vel_front: true
+    angle_cov: [0.0001, 0.0001, 0.0001]
+    angle_front: false
+gps_processing:
+    extrinsic_T_gnss: [0.07, 0.27, 0.12]
+    extrinsic_R_gnss: [ 1, 0, 0,
+                        0, 1, 0,
+                        0, 0, 1 ]
+    initXYZ: [0, 0, 0]
+    # initXYZ: [463619.839000113075599,4404452.67, 29.148] # 赛道起点 车道线 

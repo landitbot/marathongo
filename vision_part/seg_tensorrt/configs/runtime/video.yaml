@@ -1,0 +1,19 @@
+backend: tensorrt
+mode: video
+
+engine: engines/weights/fusion_fp16.engine
+input: data/videos
+output_dir: outputs/visualizations/videos
+
+threshold:
+  conf: 0.25
+  iou: 0.70
+
+runtime:
+  max_frames: 300
+  batch: 1
+
+visualization:
+  save_video: true
+  save_midframe: true
+  save_json: true

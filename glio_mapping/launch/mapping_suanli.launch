@@ -1,0 +1,13 @@
+<launch>
+  <!-- Launch file for velodyne16 VLP-16 LiDAR -->
+
+    <arg name="rviz" default="true" />
+
+    <arg name="config_files" default="$(find glio_mapping)/config/suanli.yaml" />
+    <node pkg="glio_mapping" type="glio_mapping_node" name="laserMapping" output="screen" args="$(arg config_files)"/> 
+
+    <group if="$(arg rviz)">
+    <node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find glio_mapping)/rviz_cfg/loam_livox.rviz" />
+    </group>
+    <node pkg="rosbag" type="play" name="bag_play_node" args="-r1 -s0 /outdoor_test.bag "/>
+</launch>

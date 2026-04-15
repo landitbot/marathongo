@@ -1,0 +1,2 @@
+find_package(OpenSSL REQUIRED)
+list(APPEND ALL_TARGET_LIBRARIES OpenSSL::SSL OpenSSL::Crypto)

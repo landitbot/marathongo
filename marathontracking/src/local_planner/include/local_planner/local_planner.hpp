@@ -1,0 +1,4 @@
+#ifndef LOCAL_PLANNER_HPP
+#define LOCAL_PLANNER_HPP
+
+#endif

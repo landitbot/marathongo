@@ -1,0 +1,24 @@
+[property]
+gpu-id=0
+onnx-file=/workspace/DeepStream-Yolo-Seg/fusion_branch10.onnx
+model-engine-file=/workspace/DeepStream-Yolo-Seg/fusion_branch10_b1_fp16.engine
+batch-size=1
+network-mode=2
+gie-unique-id=1
+process-mode=1
+
+# Keep raw tensor metadata enabled until a fusion parser is implemented.
+network-type=100
+output-tensor-meta=1
+
+model-color-format=0
+net-scale-factor=0.00392156862745098
+interval=0
+force-implicit-batch-dim=0
+maintain-aspect-ratio=0
+symmetric-padding=0
+scaling-filter=1
+scaling-compute-hw=2
+
+# Keep the 8-output order explicit for the fusion model.
+output-blob-names=boxes1;scores1;mask1;proto1;boxes2;scores2;mask2;proto2

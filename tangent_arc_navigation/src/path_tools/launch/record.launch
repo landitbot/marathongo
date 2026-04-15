@@ -1,0 +1,13 @@
+<launch>
+  <node pkg="path_tools" type="record_path_from_odom.py" name="record_path_from_odom" output="screen">
+    <param name="odom_topic" value="/odometry"/>
+    <param name="out_csv" value="$(env HOME)/catkin_ws/src/path_tools/data/recorded.csv"/>
+    <param name="min_point_distance" value="0.05"/>
+  </node>
+
+  <node pkg="path_tools" type="record_twist_from_odom.py" name="record_twist_from_odom" output="screen">
+    <param name="odom_topic" value="/odometry"/>
+    <param name="out_csv" value="$(env HOME)/catkin_ws/src/path_tools/data/recorded_twist.csv"/>
+    <param name="flush_every" value="20"/>
+  </node>
+</launch>

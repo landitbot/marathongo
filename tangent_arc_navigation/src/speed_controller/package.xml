@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>speed_controller</name>
+  <version>0.0.0</version>
+  <description>Speed controller with PID for yaw tracking</description>
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>angles</build_depend>
+  <build_depend>tf2</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>nav_msgs</build_export_depend>
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>angles</build_export_depend>
+  <build_export_depend>tf2</build_export_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>angles</exec_depend>
+  <exec_depend>tf2</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+</package>

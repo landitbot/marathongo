@@ -1,0 +1,9 @@
+<launch>
+  <arg name="offset_distance" default="3.5" />
+  <arg name="frame_id" default="map" />
+
+  <node name="offset_paths_node" pkg="path_tools" type="offset_paths_node.py" output="screen">
+    <param name="offset_distance" value="$(arg offset_distance)" />
+    <param name="frame_id" value="$(arg frame_id)" />
+  </node>
+</launch>

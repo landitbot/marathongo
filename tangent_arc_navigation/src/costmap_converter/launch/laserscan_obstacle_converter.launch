@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- LaserScan 输入（默认全局 /scan） -->
+  <arg name="scan_topic" default="/scan"/>
+  <!-- ObstacleArrayMsg 输出（默认全局 /obstacles，与激光同 frame，无 TF） -->
+  <arg name="obstacles_topic" default="/obstacles_raw"/>
+
+  <!-- DBSCAN：邻域半径（米）、簇最少点数 -->
+  <arg name="cluster_eps" default="0.15"/>
+  <arg name="cluster_min_points" default="2"/>
+
+  <!-- 距离过滤：&lt;=0 表示使用 LaserScan 消息自带 range_min/range_max -->
+  <arg name="range_min" default="-1.0"/>
+  <arg name="range_max" default="-1.0"/>
+
+  <!-- 单点簇的圆半径；是否发布 DBSCAN 噪声点为点障碍 -->
+  <arg name="point_obstacle_radius" default="0.05"/>
+  <arg name="publish_noise_points" default="false"/>
+
+  <node pkg="costmap_converter" type="laserscan_obstacle_converter" name="laserscan_obstacle_converter" output="screen">
+    <param name="scan_topic" value="$(arg scan_topic)"/>
+    <param name="obstacles_topic" value="$(arg obstacles_topic)"/>
+    <param name="cluster_eps" value="$(arg cluster_eps)"/>
+    <param name="cluster_min_points" value="$(arg cluster_min_points)"/>
+    <param name="range_min" value="$(arg range_min)"/>
+    <param name="range_max" value="$(arg range_max)"/>
+    <param name="point_obstacle_radius" value="$(arg point_obstacle_radius)"/>
+    <param name="publish_noise_points" value="$(arg publish_noise_points)"/>
+  </node>
+</launch>

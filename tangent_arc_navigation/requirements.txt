@@ -1,0 +1,68 @@
+# Workspace dependency manifest for /home/user/catkin_ws
+# Model: ROS1 Noetic + catkin workspace
+#
+# Usage (Python deps):
+#   python3 -m pip install -r requirements.txt
+#
+# NOTE:
+# - Most workspace dependencies are ROS system packages and C++ libs.
+# - Those cannot be installed by pip and are listed below as commented apt packages.
+
+# ----------------------------
+# Python (pip) dependencies
+# ----------------------------
+catkin_pkg>=0.5
+empy>=3.3
+rospkg>=1.5
+PyYAML>=6.0
+numpy>=1.21
+
+# Optional but commonly needed in ROS Python tooling
+setuptools>=65
+
+# --------------------------------------------
+# ROS/system dependencies (install via apt)
+# --------------------------------------------
+# sudo apt update
+# sudo apt install -y \
+#   build-essential cmake git pkg-config \
+#   python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool \
+#   libeigen3-dev libpcl-dev
+#
+# # Core ROS (Noetic)
+# sudo apt install -y \
+#   ros-noetic-ros-base \
+#   ros-noetic-catkin \
+#   ros-noetic-roscpp ros-noetic-rospy roscpp-core
+#
+# # Message/runtime deps used in workspace
+# sudo apt install -y \
+#   ros-noetic-std-msgs \
+#   ros-noetic-geometry-msgs \
+#   ros-noetic-nav-msgs \
+#   ros-noetic-sensor-msgs \
+#   ros-noetic-visualization-msgs \
+#   ros-noetic-message-generation \
+#   ros-noetic-message-runtime
+#
+# # TF / math / utility deps
+# sudo apt install -y \
+#   ros-noetic-tf2 \
+#   ros-noetic-tf2-ros \
+#   ros-noetic-tf2-geometry-msgs \
+#   ros-noetic-angles \
+#   ros-noetic-eigen-conversions \
+#   ros-noetic-roslib
+#
+# # PCL bridge deps
+# sudo apt install -y \
+#   ros-noetic-pcl-ros \
+#   ros-noetic-pcl-conversions \
+#   ros-noetic-costmap-converter
+#
+# After apt install:
+#   sudo rosdep init || true
+#   rosdep update
+#   cd ~/catkin_ws
+#   rosdep install --from-paths src --ignore-src -r -y
+#   catkin_make -DCMAKE_BUILD_TYPE=Release

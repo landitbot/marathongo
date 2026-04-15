@@ -1,0 +1,14 @@
+backend: tensorrt
+mode: image
+
+engine: engines/weights/fusion_branch10_960x544_b1_fp16.engine
+input: data/images
+output_dir: outputs/visualizations/images
+
+threshold:
+  conf: 0.25
+  iou: 0.70
+
+visualization:
+  save_overlay: true
+  save_json: true

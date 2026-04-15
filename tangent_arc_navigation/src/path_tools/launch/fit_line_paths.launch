@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Fit recorded path to straight line and publish three parallel paths -->
+  <node pkg="path_tools" type="fit_and_publish_line_paths.py" name="fit_line_paths" output="screen">
+    <param name="csv_path" value="$(find path_tools)/data/path/recorded.csv" />
+    <param name="offset_distance" value="3.5" />
+    <param name="frame_id" value="map" />
+  </node>
+</launch>

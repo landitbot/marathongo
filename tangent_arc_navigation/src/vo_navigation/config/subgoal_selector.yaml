@@ -1,0 +1,22 @@
+lookahead_dist: 4.0
+enable_adaptive_lookahead: false
+speed_lookahead_gain: 0.7
+max_lookahead_dist: 8.0
+min_lookahead_dist: 1
+nearest_reacquire_dist: 8.0
+refresh_dist: 1.2
+target_advance_step: 4
+max_search_window: 450
+publish_period_sec: 0.02
+
+# 曲率感知参数
+curvature_window: 10      # 计算曲率的前方窗口距离 (meters)
+
+# 终点检测参数（防SLAM卡顿）
+end_distance_threshold: 1.0     # 判断为接近终点的距离阈值 (meters)
+end_confirmation_count: 10       # 连续判断多少次后才确认到达终点（50Hz下约0.1s）
+
+# Topics
+path_topic: /central/smoothed_path
+odom_topic: /odometry_body
+subgoal_topic: /vo/subgoal

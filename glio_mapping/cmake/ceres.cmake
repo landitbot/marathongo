@@ -1,0 +1,7 @@
+if(EXISTS "/usr/lib/cmake/Ceres" AND IS_DIRECTORY "/usr/lib/cmake/Ceres")
+   set(Ceres_DIR "/usr/lib/cmake/Ceres")
+else()
+   set(Ceres_DIR "/usr/local/lib/cmake/Ceres")
+endif()
+find_package(Ceres REQUIRED)
+list(APPEND ALL_TARGET_LIBRARIES ${CERES_LIBRARIES})

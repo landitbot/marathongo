@@ -1,0 +1,13 @@
+torch
+numpy
+opencv-contrib-python
+scikit-fuzzy
+scikit-learn
+matplotlib
+networkx==2.8.8
+pyyaml
+zmq
+pyzmq
+pyserial
+pyserial-asyncio
+# crsf-parser

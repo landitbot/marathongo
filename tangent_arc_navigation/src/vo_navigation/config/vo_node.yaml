@@ -1,0 +1,59 @@
+# Main control
+control_period_sec: 0.05 # 新机器人修改
+max_linear_vel: 3.5 # 新机器人修改
+
+# Robot and obstacle geometry
+robot_radius: 0.4 # 新机器人修改
+obstacle_radius_inflation: 0.40 # 新机器人修改
+lane_obstacle_width: 0.05 # 新机器人修改
+lane_downsample_step: 1 
+
+# Speed control (arc-sampling based)
+enable_speed_smoothing: true
+speed_lpf_alpha: 0.20
+speed_rise_limit_mps2: 1.0 # 新机器人修改
+speed_fall_limit_mps2: 3.0 # 新机器人修改
+speed_arc_sample_count: 20 # 新机器人修改
+speed_arc_sim_steps: 48 # 新机器人修改
+speed_arc_safety_clearance: 0.25 # 新机器人修改
+
+avoidance_range_time_sec: 3.5 # 新机器人修改
+arc_sim_steps: 80
+tangent_omega_step_ratio: 0.05
+collision_slope_deg: 18.0
+collision_slope_ref_speed: 3.5 # 新机器人修改
+goal_stop_distance: 1.0 # 新机器人修改
+enable_side_hysteresis: true
+side_switch_margin_deg: 30.0
+side_hold_time_sec: 0.5
+
+# 新方向切换需连续胜出的帧数
+side_switch_counter_thresh: 5
+
+# Yaw rate limits from CSV
+fallback_max_yaw_rate: 0.85 # 新机器人修改
+angular_limit_csv_path: config/vo_angular_limits.csv # 新机器人修改
+apply_yaw_limit_on_output: false
+
+# Topics
+odom_topic: /odometry_body
+obstacles_topic: /obstacles
+subgoal_topic: /vo/subgoal
+left_lane_path_topic: /left/smoothed_path
+right_lane_path_topic: /right/smoothed_path
+speed_command_topic: /speed_command
+
+# Debug
+enable_runtime_debug: true
+enable_debug_output: true
+enable_file_log: true
+# 留空表示默认写到 ~/catkin_ws/logs/vo_node
+log_dir: ""
+enable_rviz_visualization: true
+enable_lidar_obstacle_markers: true
+enable_lidar_polygon_markers: true
+enable_lidar_velocity_markers: false
+lidar_obstacle_marker_min_diameter: 0.08
+lidar_polygon_marker_line_width: 0.05
+optimal_direction_marker_topic: /vo/optimal_direction_marker
+viz_direction_vector_length: 1.5

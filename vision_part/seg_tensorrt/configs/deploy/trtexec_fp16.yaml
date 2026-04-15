@@ -1,0 +1,11 @@
+backend: tensorrt
+builder: trtexec
+
+precision: fp16
+workspace_mib: 4096
+verbose: true
+
+paths:
+  onnx: /path/to/fusion_branch10_960x544.onnx
+  engine: engines/weights/fusion_branch10_960x544_fp16.engine
+  build_log: outputs/logs/trtexec_fp16.log

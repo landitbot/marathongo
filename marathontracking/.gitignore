@@ -1,0 +1,8 @@
+.vscode
+.catkin_tools
+venv
+__pycache__
+build
+devel
+logs
+*.bag

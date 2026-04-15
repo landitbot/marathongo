@@ -1,0 +1,26 @@
+<launch>
+  <!-- Control type selection: 'discrete' (default) or 'continuous' -->
+  <arg name="control_type" default="discrete" />
+
+  <rosparam file="$(find speed_controller)/config/speed_controller.yaml" command="load" />
+  
+  <!-- Discrete control version (default) -->
+  <node if="$(eval arg('control_type') == 'discrete')"
+        name="speed_controller_node" 
+        pkg="speed_controller" 
+        type="speed_controller_discrete" 
+        output="screen">
+    <!-- 如果希望覆盖单条参数也可以在这里 -->
+    <!-- <param name="speed_controller/kp" value="1.2"/> -->
+  </node>
+
+  <!-- Continuous PID control version -->
+  <node if="$(eval arg('control_type') == 'continuous')"
+        name="speed_controller_node" 
+        pkg="speed_controller" 
+        type="speed_controller_continuous" 
+        output="screen">
+    <!-- 如果希望覆盖单条参数也可以在这里 -->
+    <!-- <param name="kp" value="1.2"/> -->
+  </node>
+</launch>

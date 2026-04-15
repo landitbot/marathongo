@@ -1,0 +1,8 @@
+# costmap_converter obstacle input and output topics
+input_topic: /obstacles_raw
+output_topic: /obstacles
+target_frame: body
+
+# Obstacle conversion (applied to converted polygon obstacles)
+default_obstacle_radius: 0.19
+max_obstacles: 300

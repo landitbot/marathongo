@@ -1,0 +1,19 @@
+<!-- sim_navigation.launch -->
+<launch>
+    <!-- Use simulation time -->
+    <param name="use_sim_time" value="false" />
+    <!-- 启动修改后的sim_interface_node -->
+    <node name="sim_interface_node" pkg="sim_interface" type="sim_interface_node" output="screen">
+        <!-- odometry 输入与处理后的输出（在 launch 中配置） -->
+        <param name="odom_input_topic" value="/odometry"/>
+        <param name="odom_body_topic" value="/odometry_body"/>
+        <param name="odom_body_frame_id" value="camera_init"/>
+        <param name="odom_body_child_frame_id" value="body"/>
+    </node>
+
+    <!-- Publish static TF: map -> camera_init (identity, no transform) -->
+    <node pkg="tf" type="static_transform_publisher" name="map_to_camera_init" args="0 0 0 0 0 0 map camera_init 100" />
+
+    <!-- Rviz for visualization -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find sim_interface)/rviz/navigation.rviz"/>
+</launch>

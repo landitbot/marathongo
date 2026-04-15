@@ -1,0 +1,12 @@
+speed_controller:
+  kp: 1.0
+  ki: 0.1
+  kd: 0.05
+  max_angular_vel: 1.0 # 新机器人修改
+  max_linear_vel: 3.5 # 新机器人修改
+  integral_limit: 1.0
+  steady_state_error_deg: 1.0
+  linear_deadband: 0.3
+  enable_turn_speed_limit: true
+  turn_speed_limit_error_deg: 15.0
+  turn_speed_limit_linear_vel: 1.2

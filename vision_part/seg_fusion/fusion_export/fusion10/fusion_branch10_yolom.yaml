@@ -1,0 +1,53 @@
+# Fusion strategy v2:
+# - Share only model.0~model.9 (the part verified frozen/same)
+# - Keep a full Branch A from yolo11m (model.10 onward)
+# - Duplicate model.10~model.23 for Branch B from train4
+
+nc: 80
+scales:
+  m: [0.50, 1.00, 512]
+
+backbone:
+  - [-1, 1, Conv, [64, 3, 2]]      # 0-P1/2
+  - [-1, 1, Conv, [128, 3, 2]]     # 1-P2/4
+  - [-1, 2, C3k2, [256, False, 0.25]]
+  - [-1, 1, Conv, [256, 3, 2]]     # 3-P3/8
+  - [-1, 2, C3k2, [512, False, 0.25]]
+  - [-1, 1, Conv, [512, 3, 2]]     # 5-P4/16
+  - [-1, 2, C3k2, [512, True]]
+  - [-1, 1, Conv, [1024, 3, 2]]    # 7-P5/32
+  - [-1, 2, C3k2, [1024, True]]
+  - [-1, 1, SPPF, [1024, 5]]       # 9
+
+head:
+  # Branch A: person/car branch, aligned with original yolo11m-seg model.10~23
+  - [-1, 2, C2PSA, [1024]]                         # 10
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]    # 11
+  - [[-1, 6], 1, Concat, [1]]                     # 12
+  - [-1, 2, C3k2, [512, False]]                   # 13
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]    # 14
+  - [[-1, 4], 1, Concat, [1]]                     # 15
+  - [-1, 2, C3k2, [256, False]]                   # 16 (P3/8)
+  - [-1, 1, Conv, [256, 3, 2]]                    # 17
+  - [[-1, 13], 1, Concat, [1]]                    # 18
+  - [-1, 2, C3k2, [512, False]]                   # 19 (P4/16)
+  - [-1, 1, Conv, [512, 3, 2]]                    # 20
+  - [[-1, 10], 1, Concat, [1]]                    # 21
+  - [-1, 2, C3k2, [1024, True]]                   # 22 (P5/32)
+  - [[16, 19, 22], 1, Segment, [nc, 32, 256]]     # 23
+
+  # Branch B: robot branch, duplicated from train4 model.10~23
+  - [9, 2, C2PSA, [1024]]                          # 24 = train4 layer 10
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]    # 25 = train4 layer 11
+  - [[-1, 6], 1, Concat, [1]]                     # 26 = train4 layer 12
+  - [-1, 2, C3k2, [512, False]]                   # 27 = train4 layer 13
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]    # 28 = train4 layer 14
+  - [[-1, 4], 1, Concat, [1]]                     # 29 = train4 layer 15
+  - [-1, 2, C3k2, [256, False]]                   # 30 = train4 layer 16
+  - [-1, 1, Conv, [256, 3, 2]]                    # 31 = train4 layer 17
+  - [[-1, 27], 1, Concat, [1]]                    # 32 = train4 layer 18
+  - [-1, 2, C3k2, [512, False]]                   # 33 = train4 layer 19
+  - [-1, 1, Conv, [512, 3, 2]]                    # 34 = train4 layer 20
+  - [[-1, 24], 1, Concat, [1]]                    # 35 = train4 layer 21
+  - [-1, 2, C3k2, [1024, True]]                   # 36 = train4 layer 22
+  - [[30, 33, 36], 1, Segment, [3, 32, 256]]      # 37 = train4 layer 23

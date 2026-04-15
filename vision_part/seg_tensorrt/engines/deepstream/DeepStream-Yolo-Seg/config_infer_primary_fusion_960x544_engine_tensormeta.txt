@@ -1,0 +1,42 @@
+[property]
+gpu-id=0
+model-engine-file=/workspace/fusion_branch10_960x544_b1_fp16.engine
+batch-size=1
+network-mode=2
+gie-unique-id=1
+process-mode=1
+
+# Disable native detector / instance-seg parsing for now.
+# We only want raw tensor outputs until the fusion parser is implemented.
+network-type=100
+output-tensor-meta=1
+
+model-color-format=0
+net-scale-factor=0.00392156862745098
+interval=0
+force-implicit-batch-dim=0
+maintain-aspect-ratio=0
+symmetric-padding=0
+scaling-filter=1
+scaling-compute-hw=2
+
+output-blob-names=boxes1;scores1;mask1;proto1;boxes2;scores2;mask2;proto2
+
+# Future parser integration:
+# custom-lib-path=/workspace/DeepStream-Yolo-Seg/nvdsinfer_custom_impl_Yolo_seg/libnvdsinfer_custom_impl_Yolo_seg.so
+# parse-bbox-instance-mask-func-name=NvDsInferParseFusionSeg
+# output-instance-mask=1
+# segmentation-threshold=0.5
+# cluster-mode=4
+
+[sink0]
+enable=1
+type=3
+sync=0
+source-id=0
+
+container=1
+codec=1
+bitrate=4000000
+iframeinterval=30
+output-file=output/yolo_seg.mp4

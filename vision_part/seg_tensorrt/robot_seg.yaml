@@ -1,0 +1,23 @@
+project_name: robot_seg_tensorrt_demo
+task: robot_segmentation
+
+input:
+  batch: 1
+  channels: 3
+  height: 544
+  width: 960
+
+classes:
+  - person
+  - car
+  - robot
+
+paths:
+  default_engine_fp16: engines/weights/fusion_fp16.engine
+  optional_engine_int8: engines/weights/fusion_int8.engine
+  benchmark_engine_fp16: engines/weights/fusion_fp16.engine
+  robot_engine_fp16: engines/weights/fusion_robotbase_fp16.engine
+
+notes:
+  - Keep all converted TensorRT weights under engines/weights.
+  - Put any future ONNX source outside this folder or pass it directly to scripts/build_engine.sh.
