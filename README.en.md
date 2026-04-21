@@ -4,7 +4,7 @@ English | [中文](README.md)
 
 `Marathongo` is an open-source full-stack navigation framework for humanoid robot marathon scenarios, focusing on high-speed, stable, and autonomous operation in large-scale outdoor environments.
 
-We are a company focused on embodied intelligence, with deep engineering experience in localization, navigation, and robot system integration. The goal of open-sourcing this repository is not to publish a single algorithm demo, but to share a battle-tested, extensible, and adaptable framework so that robotics researchers and industry partners can bring up their own robots faster.
+Landit Robotics is a company focused on edge-side embodied brains, with years of core technology accumulation and engineering deployment experience in perception, navigation, and robot manipulation. The goal of open-sourcing this repository is not to publish a single algorithm demo, but to share a battle-tested, extensible, and adaptable framework so that robotics researchers and industry partners can bring up their own robots faster.
 
 This repository emphasizes several core strengths:
 
