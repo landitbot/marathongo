@@ -1,6 +1,6 @@
 # Marathongo
 
-English | [中文](README.md)
+English | [中文](README.cn.md)
 
 `Marathongo` is an open-source full-stack navigation framework for humanoid robot marathon scenarios, focusing on high-speed, stable, and autonomous operation in large-scale outdoor environments.
 
